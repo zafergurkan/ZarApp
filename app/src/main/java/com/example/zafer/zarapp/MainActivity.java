@@ -1,18 +1,22 @@
 package com.example.zafer.zarapp;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
-import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
     TextView zarSonuc;
     ImageView zarResim1,zarResim2;
-    Timer timer;
+    Random random = new Random();
+    int Low = 1;
+    int High = 7;
+    int a,b;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,52 +26,45 @@ public class MainActivity extends AppCompatActivity {
 
     public void zarAt(View view){
         System.out.println("Butona tıklandı");
-
-        zarResim1 = (ImageView)findViewById(R.id.imageView);
-        zarResim2 = (ImageView)findViewById(R.id.imageView2);
-
-        System.out.println("text view tanımlandı");
-
-        Random random = new Random();
-        int Low = 1;
-        int High = 7;
-
-        int a =random.nextInt(High-Low)+Low;
-        int b =random.nextInt(High-Low)+Low;
-
-        System.out.println(a);
-        System.out.println(b);
-
-        zarKontrol(a,b);
-
-       //efekt();
-
-
-        String variableValue = "zar_"+a;
-        String variableValue1 = "zar_"+b;
-        zarResim1.setImageResource(getResources().getIdentifier(variableValue, "drawable", getPackageName()));
-        zarResim2.setImageResource(getResources().getIdentifier(variableValue1, "drawable", getPackageName()));
-
+        efekt();
     }
 
-    /*private void efekt() {
+    private void efekt() {
+                new CountDownTimer(1500,150){
 
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                for (int i = 1; i <= 6; i++) {
-                    System.out.println("i : "+i);
-                    zarResim1 = (ImageView) findViewById(R.id.imageView);
-                    zarResim2 = (ImageView) findViewById(R.id.imageView2);
-                    String variableValue = "zar_" + i;
-                    zarResim1.setImageResource(getResources().getIdentifier(variableValue, "drawable", getPackageName()));
-                    zarResim2.setImageResource(getResources().getIdentifier(variableValue, "drawable", getPackageName()));
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                            a =random.nextInt(High-Low)+Low;
+                            b =random.nextInt(High-Low)+Low;
 
-                }
+                            zarResim1 = (ImageView) findViewById(R.id.imageView);
+                            zarResim2 = (ImageView) findViewById(R.id.imageView2);
+
+                            String variableValue = "zar_"+a;
+                            String variableValue1 = "zar_"+b;
+
+                            zarResim1.setImageResource(getResources().getIdentifier(variableValue, "drawable", getPackageName()));
+                            zarResim2.setImageResource(getResources().getIdentifier(variableValue1, "drawable", getPackageName()));
+
+                        }
+
+
+                    @Override
+                    public void onFinish() {
+                        System.out.println("text view tanımlandı");
+
+                        zarKontrol(a,b);
+
+                        String variableValue = "zar_"+a;
+                        String variableValue1 = "zar_"+b;
+                        zarResim1.setImageResource(getResources().getIdentifier(variableValue, "drawable", getPackageName()));
+                        zarResim2.setImageResource(getResources().getIdentifier(variableValue1, "drawable", getPackageName()));
+
+                    }
+                }.start();
+
             }
-        },0, 1000); // 1000 milisaniye  = 1 saniye
 
-    }*/
     public void zarKontrol(int x,int y){
         zarSonuc = (TextView)findViewById(R.id.zarKontrol);
         zarSonuc.setText("");
